@@ -17,17 +17,6 @@ type HomeProps = {
 }
 
 const Home: NextPage<HomeProps> = ({ tasks: taskProps }) => {
-  // const [tasks, setTasks] = useState<TaskType[]>([])
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const fetchTasks = await axios.get<ApiModelResponse<TaskType[]>>('http://localhost:3333/tasks')
-  //       setTasks([...fetchTasks.data.data])
-  //     } catch (err) {
-  //       console.log(err)
-  //     }
-  //   }
-  // })
   const [url, setUrl] = useState<string>('')
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [alert, setAlert] = useState<AlertType>({ msg: '', type: 'success', show: false })
@@ -35,7 +24,7 @@ const Home: NextPage<HomeProps> = ({ tasks: taskProps }) => {
   const getTaskList = async () => {
     console.log('getTaskList')
     try {
-      const { data } = await axios.get('http://localhost:3333/tasks');
+      const { data } = await axios.get(url);
       setTasks([...data.data])
     } catch (err) {
       setAlert({ msg: "Erro ao listar as tasks.", type: 'error', show: true })
@@ -44,7 +33,6 @@ const Home: NextPage<HomeProps> = ({ tasks: taskProps }) => {
   }
 
   const saveTask = async (task: CreateTaskType): Promise<void> => {
-    // const url = 'http://localhost:3333/tasks'
     try {
       const res = await axios.post(url, task)
       await getTaskList()
@@ -74,7 +62,7 @@ const Home: NextPage<HomeProps> = ({ tasks: taskProps }) => {
 
   const deleteTask = async (id?: string) => {
     try {
-      const res = await axios.delete(`http://localhost:3333/tasks/${id}`)
+      const res = await axios.delete(`${url}/${id}`)
       console.log(res)
       await getTaskList()
     } catch (err) {
@@ -112,15 +100,5 @@ const Home: NextPage<HomeProps> = ({ tasks: taskProps }) => {
     </>
   );
 };
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const tasks = await axios.get('http://localhost:3333/tasks');
-//   console.log(tasks.data.data);
-//   return {
-//     props: {
-//       tasks: [...tasks.data.data],
-//     },
-//   };
-// };
 
 export default Home;
