@@ -2,11 +2,24 @@
   "name": "Enzo's Task List",
   "short_name": "Task List",
   "start_url": "/",
-  "display": "",
-  "background_color": "#D1D5DB",
-  "theme_color": "#EC4899",
-  "orientation": "standalone",
-  "icons": {
-    "48": "favicon.ico"
-  }
+  "background_color": "#FFF",
+  "theme_color": "#FFF",
+  "orientation": "portrait-primary",
+  "display": "standalone",
+  "scope": ".",
+  "description": "Task List",
+  "dir": "ltr",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "./favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./favicon.ico",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
