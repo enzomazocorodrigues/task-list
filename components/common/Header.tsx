@@ -9,7 +9,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ onSave }) => {
   return (
-    <div className="w-full flex items-center justify-between bg-white border-b-2 border-gray-200 px-6 p-3">
+    <div className="w-full flex items-center justify-between bg-white border border-b-gray-200 px-6 p-3">
       <span className="flex items-center">
         <ClipboardListIcon className="h-7 w-7 mr-1" />
         <span className="text-2xl font-bold line-clamp-1 text-transparent bg-clip-text bg-gradient-to-br from-purple-500 to-pink-500">Task List</span>

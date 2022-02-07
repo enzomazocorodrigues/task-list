@@ -12,12 +12,8 @@ import { CreateTaskType } from '../types/task/CreateTaskType';
 import Alert from '../components/common/Alert';
 import { AlertType } from '../types/task/AlertType';
 
-type HomeProps = {
-  tasks: TaskType[]
-}
-
-const Home: NextPage<HomeProps> = ({ tasks: taskProps }) => {
-  const [url, setUrl] = useState<string>('')
+const Home: NextPage = () => {
+  const [url, setUrl] = useState<string>('https://e-task-list-backend.herokuapp.com/tasks')
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [alert, setAlert] = useState<AlertType>({ msg: '', type: 'success', show: false })
 
@@ -75,11 +71,11 @@ const Home: NextPage<HomeProps> = ({ tasks: taskProps }) => {
     const fetch = async () => {
       await getTaskList()
     }
-    const url = window.location.href.includes('localhost')
-      ? 'http://localhost:3333/tasks'
-      : 'https://e-task-list-backend.herokuapp.com/tasks'
+    // const url = window.location.href.includes('localhost')
+    //   ? 'http://localhost:3333/tasks'
+    //   : 'https://e-task-list-backend.herokuapp.com/tasks'
 
-    setUrl(url)
+    // setUrl(url)
     fetch()
   }, [])
 
