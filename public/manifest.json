@@ -1,0 +1,12 @@
+{
+  "name": "Enzo's Task List",
+  "short_name": "Task List",
+  "start_url": "/",
+  "display": "",
+  "background_color": "#D1D5DB",
+  "theme_color": "#EC4899",
+  "orientation": "standalone",
+  "icons": {
+    "48": "favicon.ico"
+  }
+}

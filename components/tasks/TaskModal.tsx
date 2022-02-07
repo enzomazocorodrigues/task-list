@@ -14,8 +14,8 @@ type TaskModalProps = {
 const TaskModal: React.FC<TaskModalProps> = ({ onSave }) => {
   let [isOpen, setIsOpen] = useState(false)
   let [isLoading, setIsLoading] = useState(false)
-  let [title, setTitle] = useState('Teste')
-  let [due_date, setDueDate] = useState('')
+  let [title, setTitle] = useState('')
+  let [due_date, setDueDate] = useState(new Date().toISOString().substring(0, 10))
 
   const toggleModal = (): void => {
     setIsOpen(!isOpen)
@@ -37,7 +37,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ onSave }) => {
       </Button>
       <Modal title="New Task" open={isOpen} toggleModal={toggleModal} >
         <TextField value={title} onChange={(e) => setTitle(e.target.value)} className="mt-4" placeholder="Title" />
-        <TextField value={due_date} onChange={(e) => setDueDate(e.target.value)} className="mt-4" type="date" placeholder="Due date" />
+        <TextField value={due_date} onChange={(e) => { console.log(e.target.value); setDueDate(e.target.value) }} className="mt-4" type="date" placeholder="Due date" />
 
         <Button onClick={clickSave} loading={isLoading} className="mt-4">
           Add task
