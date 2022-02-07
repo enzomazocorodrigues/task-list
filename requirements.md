@@ -1,7 +1,7 @@
 # Requirements
 
 - [x] Loading spinners
-- [ ] Alerts notification
+- [x] Alerts notification
 - [ ] Background image when tasksless
 - [ ] Form validation
 - [ ] Update task?
@@ -12,10 +12,10 @@
 - [x] [Task]: DeleteTask Icon
 
 ### Alerts notification
-- [ ] GetTaskList: error
+- [X] GetTaskList: error
 - [ ] CreateTask: success, error
-- [ ] RemoveTask: success, error
-- [ ] CheckTask: error
+- [x] RemoveTask: success, error
+- [x] CheckTask: error
 
 ### Form validation
 

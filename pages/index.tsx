@@ -11,6 +11,7 @@ import { ApiModelResponse } from '../types/common/ApiModelResponse';
 import { CreateTaskType } from '../types/task/CreateTaskType';
 import Alert from '../components/common/Alert';
 import { AlertType } from '../types/task/AlertType';
+import NoTaskList from '../components/tasks/NoTaskList';
 
 const Home: NextPage = () => {
   // const [url, setUrl] = useState<string>('https://e-task-list-backend.herokuapp.com/tasks')
@@ -90,15 +91,19 @@ const Home: NextPage = () => {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header onSave={saveTask} />
       <Alert show={alert.show} msg={alert.msg} type={alert.type} toggleAlert={() => setAlert({ ...alert, show: false })} />
       <Container>
-        <List>
-          {tasks.map((task, i) => <Task task={task} onCheck={checkTask} onDelete={deleteTask} key={i} />)}
-        </List>
+        {tasks.length
+          ? (
+            <List>
+              {tasks.map((task, i) => <Task task={task} onCheck={checkTask} onDelete={deleteTask} key={i} />)}
+            </List>
+          )
+          : <NoTaskList onSave={saveTask} />}
       </Container>
     </>
   );

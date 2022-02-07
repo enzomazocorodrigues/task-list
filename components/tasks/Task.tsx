@@ -33,6 +33,11 @@ const Task: React.FC<TaskProps> = ({ onCheck, onDelete, task }) => {
     setIsLoading(false)
   }
 
+  const clickCheck = (): void => {
+    navigator.vibrate(200)
+    onCheck(task.id)
+  }
+
   const pastDueDate = task.due_date ? new Date(task.due_date) < new Date() : null
 
   return (
@@ -45,7 +50,7 @@ const Task: React.FC<TaskProps> = ({ onCheck, onDelete, task }) => {
         </span>
       </div>
       <div className="flex items-center">
-        <Toggle disabled={isLoading} value={task.checked} toggleValue={() => onCheck(task.id)} />
+        <Toggle disabled={isLoading} value={task.checked} toggleValue={clickCheck} />
         <div className="ml-2 sm:ml-4"></div>
         {!isLoading
           ? <TrashIcon onClick={clickDelete} className="h-6 w-6 text-pink-500 hover:text-pink-300 cursor-pointer focus:ring-4 focus:ring-purple-200"></TrashIcon>
