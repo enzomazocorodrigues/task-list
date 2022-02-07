@@ -1,5 +1,5 @@
 const Container: React.FC = ({ children }) => {
-  return <div className="py-6 h-full">{children}</div>
+  return <div className="pt-10">{children}</div>
 }
 
 export default Container;
