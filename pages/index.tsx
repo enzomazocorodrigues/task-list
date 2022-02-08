@@ -15,8 +15,8 @@ import NoTaskList from '../components/tasks/NoTaskList';
 
 const Home: NextPage = () => {
   // const [url, setUrl] = useState<string>('https://e-task-list-backend.herokuapp.com/tasks')
-  const url = 'http://localhost:5000/tasks'
-  // const url = 'https://e-task-list-backend.herokuapp.com/tasks'
+  // const url = 'http://localhost:5000/tasks'
+  const url = 'https://e-task-list-backend.herokuapp.com/tasks'
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [alert, setAlert] = useState<AlertType>({ msg: '', type: 'success', show: false })
   const [fetched, setFetched] = useState<boolean>(false)
