@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage } from 'next';
 import Head from 'next/head';
 import axios from 'axios';
 import Header from '../components/common/Header';
@@ -15,19 +15,22 @@ import NoTaskList from '../components/tasks/NoTaskList';
 
 const Home: NextPage = () => {
   // const [url, setUrl] = useState<string>('https://e-task-list-backend.herokuapp.com/tasks')
-  // const url = 'http://localhost:5000/tasks'
-  const url = 'https://e-task-list-backend.herokuapp.com/tasks'
+  const url = 'http://localhost:5000/tasks'
+  // const url = 'https://e-task-list-backend.herokuapp.com/tasks'
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [alert, setAlert] = useState<AlertType>({ msg: '', type: 'success', show: false })
+  const [fetched, setFetched] = useState<boolean>(false)
 
   const getTaskList = async () => {
-    console.log('getTaskList')
     try {
+      setFetched(false)
       const { data } = await axios.get(url);
       setTasks([...data.data])
-    } catch (err) {
-      setAlert({ msg: "Erro ao listar as tasks.", type: 'error', show: true })
-      console.error(err)
+      setFetched(true)
+    } catch (err: any) {
+      const msg = err?.response?.data?.data?.errors[0].message[0]
+      setAlert({ msg: msg || "Erro ao listar as tasks.", type: 'error', show: true })
+      setFetched(true)
     }
   }
 
@@ -36,9 +39,9 @@ const Home: NextPage = () => {
       const res = await axios.post(url, task)
       await getTaskList()
       setAlert({ msg: "A task foi salva com sucesso.", type: 'success', show: true })
-    } catch (err) {
-      console.error(err)
-      setAlert({ msg: "Erro ao salvar a task.", type: 'error', show: true })
+    } catch (err: any) {
+      const msg = err?.response?.data?.data?.errors[0].message[0]
+      setAlert({ msg: msg || "Erro ao salvar a task.", type: 'error', show: true })
     }
   }
 
@@ -52,10 +55,10 @@ const Home: NextPage = () => {
     toggleTaskChecked()
     try {
       await axios.put(`${url}/check/${id}`)
-    } catch (err) {
+    } catch (err: any) {
       toggleTaskChecked()
-      console.error(err)
-      setAlert({ msg: "Erro ao alterar a task.", type: 'error', show: true })
+      const msg = err?.response?.data?.data?.errors[0].message[0]
+      setAlert({ msg: msg || "Erro ao alterar a task.", type: 'error', show: true })
     }
   }
 
@@ -64,9 +67,9 @@ const Home: NextPage = () => {
       const res = await axios.delete(`${url}/${id}`)
       console.log(res)
       await getTaskList()
-    } catch (err) {
-      console.error(err)
-      setAlert({ msg: "Erro ao deletar a task.", type: 'error', show: true })
+    } catch (err: any) {
+      const msg = err?.response?.data?.data?.errors[0].message[0]
+      setAlert({ msg: msg || err.message, type: 'error', show: true })
     }
   }
 
@@ -97,7 +100,7 @@ const Home: NextPage = () => {
       <Header onSave={saveTask} />
       <Alert show={alert.show} msg={alert.msg} type={alert.type} toggleAlert={() => setAlert({ ...alert, show: false })} />
       <Container>
-        {tasks.length
+        {tasks.length || !fetched
           ? (
             <List>
               {tasks.map((task, i) => <Task task={task} onCheck={checkTask} onDelete={deleteTask} key={i} />)}
